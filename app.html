@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HKU Piano Companion</title><link rel="stylesheet" href="app.css"></head>
+<body>
+<header><div class="brand"><span class="mark" aria-hidden="true">P</span><div><strong>Piano Companion</strong><span>HKU facilities / personal booking assistant</span></div></div><div class="header-right"><span id="clock"></span><span id="loginBadge" class="badge">Login not checked</span></div></header>
+<main>
+<section class="hero"><div><p class="eyebrow">YOUR NEXT PRACTICE SESSION</p><h1>Less setup. More piano.</h1><p>Use your own HKU login. Prepare one reservation, watch the countdown, and see the actual booking response.</p></div><span class="tag">MICROSOFT EDGE EXTENSION</span></section>
+<div id="flash" class="flash" role="alert" hidden></div>
+<section class="home-actions">
+<button id="portalBtn" class="action-card"><span class="number">01</span><span><strong>Portal login</strong><small>Sign in with HKU SSO and 2FA in your browser.</small></span><span class="arrow">&#8599;</span></button>
+<button id="reserveBtn" class="action-card"><span class="number">02</span><span><strong>Reservation</strong><small>Select a room, time slot, and submission time.</small></span><span class="arrow">&#8594;</span></button>
+</section>
+<section id="reservationSection" hidden>
+<div class="section-title"><h2>Set up your reservation</h2><span class="muted">All dates and times below use Hong Kong time (UTC+8).</span></div>
+<form id="bookingForm">
+<fieldset id="settings">
+<div class="two-col">
+<section class="card"><h3><span class="step-dot">1</span> Room &amp; session</h3>
+<label for="room">Music room</label><select id="room" name="room"></select>
+<div class="row"><div><label for="date">Booking date</label><input id="date" type="date" required></div><div><label for="people">Room users</label><input id="people" type="number" min="1" max="100" value="1" required></div></div>
+<div class="row"><div><label for="start">Start time</label><input id="start" type="time" step="60" value="14:00" required></div><div><label for="end">End time</label><input id="end" type="time" step="60" value="15:00" required></div></div>
+<div class="calendar-tools"><button id="calendarBtn" type="button" class="secondary">Open live HKU calendar</button><button id="readSlotsBtn" type="button" class="text-button">Read slot links</button><button id="importSlotBtn" type="button" class="text-button">Use selected HKU slot</button></div>
+<p id="availabilityNote" class="hint">Availability has not been checked. Open HKU's live calendar to see its current bookable slots. A manually entered time is not proof of availability.</p>
+<div id="slots" class="slots"></div>
+</section>
+<section class="card"><h3><span class="step-dot">2</span> Your details</h3>
+<label for="uid">Student UID</label><input id="uid" type="text" autocomplete="off" placeholder="Enter your student UID" required>
+<label for="phone">Contact number</label><input id="phone" type="tel" autocomplete="off" placeholder="Enter the contact number for the booking" required>
+<label class="checkline"><input id="remember" type="checkbox" checked><span>Remember these booking details on this computer.</span></label>
+<div class="privacy"><strong>No separate session file</strong><p>Your HKU session stays in your normal Edge profile. This extension does not read your password, export cookies, or upload your details to another service.</p></div>
+<label class="checkline"><input id="agreement" type="checkbox" required><span>I have read the room's booking conditions and authorize checking the agreement box on the form.</span></label>
+</section>
+</div>
+<section class="card timing"><h3><span class="step-dot">3</span> When to submit</h3>
+<div class="row"><div><label for="mode">Run mode</label><select id="mode"><option value="scheduled">Scheduled release</option><option value="now">Prepare now</option></select></div><div><label for="releaseDate">Release date</label><input id="releaseDate" type="date" required></div><div><label for="releaseTime">Release time (HKT)</label><input id="releaseTime" type="time" step="1" value="14:59:55" required></div></div>
+<div class="row four"><div><label for="early">Open form early (sec)</label><input id="early" type="number" min="5" max="300" step="1" value="30" required></div><div><label for="offset">Create after release (sec)</label><input id="offset" type="number" min="0" max="300" step="0.05" value="0.20" required></div><div><label for="captchaLead">Click CAPTCHA before release (sec)</label><input id="captchaLead" type="number" min="0" max="120" step="1" value="10" required></div><div><label for="late">Late CAPTCHA allowance (sec)</label><input id="late" type="number" min="0" max="300" step="1" value="120" required></div></div>
+<p class="hint">Release time is your input, not verified HKU policy. The default comes from your script. Keep this companion window, Edge, and your computer awake. A late CAPTCHA solution submits once within your allowance; zero means do not submit late.</p>
+<label class="checkline rehearsal"><input id="dryRun" type="checkbox" checked><span><strong>Rehearsal only - fill the form, but never click Create.</strong> Recommended for your first local test. Uncheck to authorize a real booking.</span></label>
+</section>
+</fieldset>
+<div class="form-footer"><p>One reservation. One Create attempt. No repeated refreshes.</p><button id="confirmBtn" type="submit" class="primary">Review reservation</button></div>
+</form>
+</section>
+<section id="progressSection" class="card progress-card" hidden aria-live="polite">
+<div class="section-title"><h2 id="stage">Ready</h2><span id="countdown" class="countdown">--:--</span></div><p id="stageDetail" class="muted"></p>
+<div class="progress-track"><div id="progressBar"></div></div>
+<div class="run-actions"><button id="showTabBtn" class="secondary" type="button">Show booking tab</button><button id="cancelBtn" class="danger" type="button">Cancel pending attempt</button><button id="exportBtn" class="text-button" type="button">Export log</button></div>
+<div id="captchaBanner" class="captcha-banner" hidden><strong>Manual CAPTCHA action needed</strong><p id="captchaText">Complete the challenge in the HKU booking tab. The assistant will detect verification automatically.</p><button id="solveBtn" type="button" class="primary">Go to CAPTCHA</button></div>
+<details open><summary>Progress log</summary><pre id="log" class="log"></pre></details>
+<section id="resultSection" hidden><h3>HKU response</h3><p id="resultMeta" class="muted"></p><pre id="resultText" class="result-text"></pre><details id="rawDetails" hidden><summary>Observed POST response (raw, local only)</summary><pre id="rawResponse" class="raw-response"></pre></details><p class="hint">An HTTP 200 or a sent click is not a booking confirmation. Read the exact message and check My Reservations in HKU. No automatic retry is made.</p></section>
+</section>
+<footer><span>Unofficial personal tool. Not affiliated with HKU.</span><button id="clearBtn" type="button" class="text-button">Clear saved details &amp; log</button></footer>
+</main>
+<dialog id="reviewDialog"><h2 id="reviewTitle">Review before arming</h2><pre id="reviewSummary"></pre><p class="hint">Confirm authorizes only this attempt. Closing the companion cancels future automated actions; it cannot undo a request already sent.</p><div class="dialog-actions"><button id="reviewBack" class="secondary">Back</button><button id="reviewStart" class="primary">Confirm &amp; arm</button></div></dialog>
+<script src="shared.js"></script><script src="app.js"></script>
+</body></html>

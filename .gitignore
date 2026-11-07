@@ -1,0 +1,38 @@
+# Authentication, personal details and local profiles (never publish)
+auth.json
+**/auth.json
+edge_profile/
+**/edge_profile/
+user_data/
+**/user_data/
+*.cookies
+*.cookie
+*.har
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+
+# Local logs, exported booking results and artifacts
+*.log
+*.zip
+*.crx
+*.txt.bak
+booking-results/
+booking-log*.json
+booking-response*.json
+screenshots-private/
+
+# Python tests and local workspaces
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+tests/last-test-report.json

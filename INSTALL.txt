@@ -1,0 +1,29 @@
+HKU PIANO COMPANION - START HERE
+
+1. Extract the ZIP to a permanent folder.
+2. Open Microsoft Edge and enter: edge://extensions
+3. Enable Developer mode.
+4. Click Load unpacked.
+5. Select the HKU_Piano_Companion folder containing manifest.json.
+6. Click HKU Piano Companion in Edge's Extensions menu.
+
+FIRST TEST (NOT A BOOKING)
+Portal login -> complete SSO + 2FA -> Reservation -> enter room/date/time/details
+-> Run mode: Prepare now -> leave Rehearsal only ON -> Review -> Confirm rehearsal.
+Solve any CAPTCHA manually when reminded. Create is never clicked in rehearsal.
+
+REAL BOOKING
+Set Scheduled release and its release date/time in Hong Kong time.
+Set early-open seconds and the Create offset. Uncheck Rehearsal only.
+Review the exact selection, then confirm.
+Keep Edge and the companion open and your computer awake.
+
+No Python setup or save_session.py is needed: your normal Edge login is used.
+A Create click is not a booking confirmation. Read the exact HKU response.
+Check My Reservations before retrying an unknown outcome.
+
+IMPORTANT
+Live authenticated HKU compatibility and actual Edge installation have not been
+verified in the development environment. Run rehearsal first. Live availability
+uses HKU's native calendar; unreadable slot links are never labelled unavailable.
+See README.md and TEST_REPORT.md for functionality, limits, and test scope.
