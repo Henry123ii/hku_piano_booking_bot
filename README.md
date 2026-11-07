@@ -2,7 +2,7 @@
 
 **An unofficial Microsoft Edge extension for HKU music-room reservations.**
 
-Plan a room session in a simple interface, use your existing HKU SSO login, prepare the reservation form ahead of a release time, and check the portal's actual booking response. The extension keeps a visible progress log and prompts you if a reCAPTCHA challenge requires manual attention.
+Want to secure your booking before anyone else? This is the slot snatcher! Plan a room session in a simple interface, use your existing HKU SSO login, prepare the reservation form ahead of a release time, and check the portal's actual booking response. The extension keeps a visible progress log and prompts you if a reCAPTCHA challenge requires manual attention.
 
 > **Status:** Personal project / experimental v1.0.0. Automated tests have passed in simulated browsers, but authenticated HKU pages and live reservations have **not** been independently verified. Rehearse before depending on it. **Not affiliated with or endorsed by HKU.**
 
